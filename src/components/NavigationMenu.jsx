@@ -1,6 +1,3 @@
-
-'use client';
-
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 
 const NavigationMenu = () => {
@@ -24,7 +21,6 @@ const NavigationMenu = () => {
           <Dropdown.Item>Dashboard</Dropdown.Item>
           <Dropdown.Item>Sign out</Dropdown.Item>
         </Dropdown>
-        <Navbar.Toggle />
       </div>
     </Navbar>
   );

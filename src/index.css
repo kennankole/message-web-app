@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.question-btn {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+  padding: 3%;
+}

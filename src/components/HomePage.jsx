@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button } from "flowbite-react";
 import NavigationMenu from "./NavigationMenu";
 import LoginToggle from "./Modal";
+import QuestionsList from "./questions/QuestionsList";
 
 const HomePage = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -38,16 +39,16 @@ const HomePage = () => {
   return (
     <>
       <NavigationMenu />
-      <main className="flex flex-col items-center">
-        <div>
-          <h1>Welcome to Branch International messaging web app</h1>
+      <main className="">
+        <div className="flex justify-center">
+          <h1 className="font-bold">Welcome to Branch International messaging web app</h1>
         </div>
         <div className="w-full border-2">
-          <div className="flex flex-col items-center">
-            list of questions
+          <div className="">
+            <QuestionsList />
           </div>
         </div>
-        <div className="flex items-end">
+        <div className="question-btn">
         <Button onClick={() => setOpenModal(true)}>Ask a question</Button>
         </div>
         <LoginToggle
@@ -62,7 +63,6 @@ const HomePage = () => {
       </main>
     </>
   )
-
 };
 export default HomePage;
 
