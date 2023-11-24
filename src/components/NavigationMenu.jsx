@@ -1,6 +1,7 @@
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 
 const NavigationMenu = () => {
+  
   return (
     <Navbar fluid rounded>
       <Navbar.Brand href="https://flowbite-react.com">

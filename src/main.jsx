@@ -34,15 +34,12 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/agent/profile",
-        element: <div>Hello</div>,
-      },
-      {
         path: "/agent/login",
         element: <LoginForm />,
       },
       {
-        path: "/agent/dashboard",
+        index: true,
+        // path: "/agent/dashboard",
         element: <AgentDashBoard />,
       },
       {

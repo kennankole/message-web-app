@@ -1,6 +1,9 @@
 import { Accordion } from 'flowbite-react';
+import { useNavigate } from 'react-router';
 
 const QuestionsList = () => {
+  const navigate = useNavigate();
+  
   return (
     <>
     <Accordion>
