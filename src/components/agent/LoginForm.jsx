@@ -1,6 +1,6 @@
 import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 
-const AgentLoginForm = () => {
+const LoginForm = () => {
   return (
     <section className="flex justify-center p-20">
       <form className="flex max-w-md flex-col gap-4 w-full">
@@ -21,4 +21,4 @@ const AgentLoginForm = () => {
     </section>
   );
 }
-export default AgentLoginForm;
+export default LoginForm;

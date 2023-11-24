@@ -4,32 +4,48 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from './App';
 import './index.css'
 
-import AgentLoginForm from './components/agent/AgentLoginForm';
 import ErrorPage from './ErroPage';
 import CustomerLoginForm from './components/customers/CustomerLogin';
 import Signup from './components/Signup';
+import Agent from './components/agent/Agent';
+import LoginForm from './components/agent/LoginForm';
+import AgentDashBoard from './components/agent/AgentDashBoard';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: "/customer",
+    element: <CustomerLoginForm />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: "/agent",
+    element: <Agent />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "agent/",
-        element: <AgentLoginForm />,
+        path: "/agent/profile",
+        element: <div>Hello</div>,
       },
       {
-        path: "customers/",
-        element: <CustomerLoginForm />,
+        path: "/agent/login",
+        element: <LoginForm />,
       },
       {
-        path: "signup/",
-        element: <Signup />,
+        path: "/agent/dashboard",
+        element: <AgentDashBoard />,
       }
     ],
   },
-
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

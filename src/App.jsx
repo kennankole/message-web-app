@@ -3,9 +3,8 @@ import HomePage from "./components/HomePage";
 
 const App = () => (
   <>
-    <HomePage />
     <main>
-      <Outlet />
+      <HomePage />
     </main>
   </>
 );
