@@ -10,6 +10,7 @@ import Signup from './components/Signup';
 import Agent from './components/agent/Agent';
 import LoginForm from './components/agent/LoginForm';
 import AgentDashBoard from './components/agent/AgentDashBoard';
+import QuestionDetail from './components/agent/QuestionDetail';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/agent/dashboard",
         element: <AgentDashBoard />,
+      },
+      {
+        path: "/agent/question-detail/:id/",
+        element: <QuestionDetail />
       }
     ],
   },
