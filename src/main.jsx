@@ -11,6 +11,9 @@ import Agent from './components/agent/Agent';
 import LoginForm from './components/agent/LoginForm';
 import AgentDashBoard from './components/agent/AgentDashBoard';
 import QuestionDetail from './components/agent/QuestionDetail';
+import CustomerDashBoard from './components/customers/CustomerDashboard';
+import Customer from './components/customers/Customer';
+import AskQuestion from './components/customers/AskQuestion';
 
 const router = createBrowserRouter([
   {
@@ -20,8 +23,23 @@ const router = createBrowserRouter([
   },
   {
     path: "/customer",
-    element: <CustomerLoginForm />,
-    errorElement: <ErrorPage />
+    element: <Customer />,
+    errorElement: <ErrorPage />, 
+
+    children: [
+      {
+        index: "/customer/dashboard",
+        element: <CustomerDashBoard />,
+      },
+      {
+        path: "/customer/login",
+        element: <CustomerLoginForm />,
+      },
+      {
+        path: "/customer/ask",
+        element: <AskQuestion />
+      }
+    ]
   },
   {
     path: "/signup",
@@ -39,7 +57,6 @@ const router = createBrowserRouter([
       },
       {
         index: true,
-        // path: "/agent/dashboard",
         element: <AgentDashBoard />,
       },
       {

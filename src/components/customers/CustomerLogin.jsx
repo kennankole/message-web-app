@@ -1,4 +1,4 @@
-import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
+import { Button, Label, TextInput } from 'flowbite-react';
 
 const CustomerLoginForm = () => {
   return (
