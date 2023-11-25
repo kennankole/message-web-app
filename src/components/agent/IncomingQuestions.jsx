@@ -1,7 +1,6 @@
-import React from 'react';
+// import React from 'react';
 
 const RealTimeQuestions = () => {
-  // Dummy questions for demonstration
   const dummyQuestions = [
     'How does the system handle authentication?',
     'What are the supported browsers?',
@@ -15,7 +14,6 @@ const RealTimeQuestions = () => {
     'How does the system handle authentication?',
     'What are the supported browsers?',
     'Can I change my profile picture?',
-    // Add more dummy questions as needed
   ];
 
   return (

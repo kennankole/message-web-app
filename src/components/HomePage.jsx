@@ -3,13 +3,12 @@ import { useState } from "react";
 import { Button } from "flowbite-react";
 import NavigationMenu from "./NavigationMenu";
 import LoginToggle from "./Modal";
-import QuestionsList from "./questions/QuestionsList";
+import QuestionsList from "./QuestionsList";
 
 const HomePage = () => {
   const [openModal, setOpenModal] = useState(false);
   const [email, setEmail] = useState('');
   const [isLoginForm, setIsLoginForm] = useState('');
-  const [password, setPassword] = useState('');
 
   const onCloseModal = () => {
     setOpenModal(false);
@@ -24,9 +23,6 @@ const HomePage = () => {
     setIsLoginForm(!isLoginForm);
   };
 
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-  }
 
   const handleSubmit = () => {
     if (isLoginForm) {
@@ -39,16 +35,18 @@ const HomePage = () => {
   return (
     <>
       <NavigationMenu />
-      <main className="">
+      <main className="p-10">
         <div className="flex justify-center">
-          <h1 className="font-bold">Welcome to Branch International messaging web app</h1>
+          <p className=" text-center font-bold p-5">
+            Welcome to Branch International messaging web app
+          </p>
         </div>
-        <div className="w-full border-2">
+        <div className="w-full">
           <div className="">
             <QuestionsList />
           </div>
         </div>
-        <div className="question-btn">
+        <div className="flex justify-end py-5">
         <Button onClick={() => setOpenModal(true)}>Ask a question</Button>
         </div>
         <LoginToggle

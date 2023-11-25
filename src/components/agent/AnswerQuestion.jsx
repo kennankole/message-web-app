@@ -2,7 +2,7 @@ import {
   Button,
   Label, Modal, Textarea
 } from 'flowbite-react';
-
+import PropTypes from 'prop-types';
 
 const AnswerQuestion = ({
   openModal, onCloseModal,
@@ -26,10 +26,14 @@ const AnswerQuestion = ({
           <div className="py-5">
             <Button type="submit" onClick={handleSubmit}>Submit Answer</Button>
           </div>
-
         </Modal.Body>
       </Modal>
     </>
   );
+}
+AnswerQuestion.propTypes = {
+  openModal: PropTypes.object.isRequired,
+  onCloseModal: PropTypes.bool.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 }
 export default AnswerQuestion;

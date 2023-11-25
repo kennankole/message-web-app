@@ -7,7 +7,7 @@ const QuestionDetail = () => {
 
   const onCloseModal = () => {
     setOpenModal(false);
-    setEmail('');
+    // setEmail('');
   }
 
   const handleSubmit = () => {
