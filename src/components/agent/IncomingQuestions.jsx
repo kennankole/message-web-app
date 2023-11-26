@@ -1,5 +1,7 @@
 // import React from 'react';
 
+import { Link } from "react-router-dom";
+
 const RealTimeQuestions = () => {
   const dummyQuestions = [
     'How does the system handle authentication?',
@@ -24,7 +26,9 @@ const RealTimeQuestions = () => {
             key={index}
             className="bg-white p-3 mb-2 rounded-md shadow-md"
           >
-            {question}
+            <Link to="/agent/question-detail/1">
+              {question}
+            </Link>
           </div>
         ))}
       </div>

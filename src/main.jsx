@@ -30,7 +30,7 @@ const router = createBrowserRouter([
 
     children: [
       {
-        index: "/customer/dashboard",
+        index: true,
         element: <CustomerDashBoard />,
       },
       {
@@ -52,6 +52,7 @@ const router = createBrowserRouter([
     path: "/agent",
     element: <Agent />,
     errorElement: <ErrorPage />,
+  
     children: [
       {
         path: "/agent/login",
