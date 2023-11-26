@@ -2,39 +2,57 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllQuestionsAsync } from '../features/questions/questionSlice';
 import { Accordion, Button } from 'flowbite-react';
-// import { useNavigate } from 'react-router';
+import { currentUserAsync } from '../features/authentication/authenticationSlice';
+import { Link } from 'react-router-dom';
 
 const QuestionsList = () => {
-  // const navigate = useNavigate();
   const dispatch = useDispatch();
   const questions = useSelector((state) => state.questions.questions);
-  console.log(questions);
+  const user = useSelector((state) => state.auth.user);
+  const loggedIn = useSelector((state) => state.auth.loggedIn);
+  console.log(user.user_identity);
 
   useEffect(() => {
     dispatch(getAllQuestionsAsync())
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(currentUserAsync())
+  }, [dispatch]);
+
   return (
     <>
       <Accordion>
-        {questions.length ? (
+        {questions.length > 0 ? (
           questions.map((item) => (
             <Accordion.Panel key={item.question.id}>
               <Accordion.Title>
-                Asked by USER ID {item.question.user_identity.replace(/\.\d+$/, '')}
+                {item.question.body}
               </Accordion.Title>
               <Accordion.Content>
                 <p className="mb-2 text-gray-500 dark:text-gray-400">
-                  {item.question.body}
+                  Asked by USER ID {item.question.user_identity.replace(/\.\d+$/, '')}
                 </p>
                 {item.question.answer ? (
-                  <Button type="button" color="yellow">
-                    No answer
-                  </Button>
+                  <p className="mb-2 text-gray-500 dark:text-gray-400">
+                    {item.question.answer}
+                  </p>
                 ) : (
-                  <Button type="button" color="green">
-                    View Answer
-                  </Button>
+                  <div>
+                    <p className="mb-2 text-gray-500 dark:text-gray-400">
+                      Has not been answered
+                    </p>
+                    {loggedIn && user && user.user_identity.startsWith("AG") && (
+                      <div>
+                        <Button type="button">
+                          <Link to={`/agent/question-detail/${item.question.id}`}>
+                            View Details
+                          </Link>
+                        </Button>
+
+                      </div>
+                    )}
+                  </div>
                 )}
               </Accordion.Content>
             </Accordion.Panel>

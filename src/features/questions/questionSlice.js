@@ -19,6 +19,7 @@ export const askQuestionAsync = createAsyncThunk(
 
 
 const initialState = {
+  status: 'idle',
   error: null,
   isLoading: false,
   questions: [],
@@ -44,7 +45,7 @@ const questionsSlice = createSlice({
       })
       .addCase(getAllQuestionsAsync.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error;
+        state.error = action.error.message;
       })
 
       // Ask Question
@@ -56,7 +57,7 @@ const questionsSlice = createSlice({
       })
       .addCase(askQuestionAsync.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error;
+        state.error = action.error.message;
       });
   },
 });

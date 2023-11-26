@@ -4,9 +4,11 @@ import { currentUserAsync, logoutUserAsync } from '../features/authentication/au
 import { useNavigate } from 'react-router';
 
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
+import { Link } from 'react-router-dom';
 
 const NavigationMenu = () => {
   const user = useSelector((state) => state.auth.user);
+  const loggedIn = useSelector((state) => state.auth.loggedIn);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -16,7 +18,7 @@ const NavigationMenu = () => {
 
   const handleLogout = () => {
     dispatch(logoutUserAsync(user))
-    navigate("/customer/login");
+    navigate("/login");
   }
   return (
     <Navbar fluid rounded>
@@ -31,14 +33,25 @@ const NavigationMenu = () => {
             <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
           }
         >
-          <Dropdown.Header>
-            <span className="block text-sm">Bonnie Green</span>
-            <span className="block truncate text-sm font-medium">name@flowbite.com</span>
-          </Dropdown.Header>
-          <Dropdown.Item>Dashboard</Dropdown.Item>
+          {loggedIn ? (
+            <>
+              <Dropdown.Header>
+                <span className="block text-sm">User ID:{user.user_identity}</span>
+                <span className="block truncate text-sm font-medium">
+                  Email: {user.email}
+                </span>
+              </Dropdown.Header>
+              <Dropdown.Item onClick={handleLogout}>
+                Sign out
+              </Dropdown.Item>
+            </>
+          ) : (
           <Dropdown.Item onClick={handleLogout}>
-            Sign out
+            <Link to="/login">
+              Login
+            </Link>
           </Dropdown.Item>
+          )}
         </Dropdown>
       </div>
     </Navbar>

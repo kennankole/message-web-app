@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { Button, Label, Modal, TextInput } from 'flowbite-react';
+import { currentUserAsync } from "../features/authentication/authenticationSlice";
 import randomIDGenerator from "./random";
 import NavigationMenu from "./NavigationMenu";
 import { registerUserAsync, loginUserAsync } from "../features/authentication/authenticationSlice";
@@ -11,6 +12,8 @@ import QuestionsList from "./QuestionsList";
 const HomePage = () => {
   const [openModal, setOpenModal] = useState(false);
   const [isLoginForm, setIsLoginForm] = useState('');
+  const user = useSelector((state) => state.auth.user);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
@@ -23,9 +26,12 @@ const HomePage = () => {
     setIsLoginForm(!isLoginForm);
   };
 
+  useEffect(() => {
+    dispatch(currentUserAsync())
+  }, [dispatch]);
+
   const onSubmit = (data) => {
     if (isLoginForm) {
-      alert('You are loggin in');
       dispatch(loginUserAsync(data))
       reset();
       navigate('/customer/ask');
@@ -57,9 +63,14 @@ const HomePage = () => {
             <QuestionsList />
           </div>
         </div>
-        <div className="flex justify-end py-5">
-          <Button onClick={() => setOpenModal(true)}>Ask a question</Button>
-        </div>
+        {user && user.user_identity.startsWith("AG") ? (
+          <div></div>
+        ) : (
+          <div className="flex justify-end py-5">
+            <Button onClick={() => setOpenModal(true)}>Ask aaa question</Button>
+          </div>
+        )}
+
         <div>
           <Modal show={openModal} size="md" onClose={onCloseModal} popup>
             <Modal.Header />
@@ -128,7 +139,7 @@ const HomePage = () => {
                     {isLoginForm ? 'Login in to your account' : 'Creat your account'}
                   </Button>
                 </div>
-                { errors && (
+                {errors && (
                   <p className="text-red-500 dark:text-red-400">
                     {Object.values(errors).map((error, index) => (
                       <span key={index}>{error.message}</span>

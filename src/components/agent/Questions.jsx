@@ -10,17 +10,18 @@ const Questions = () => {
 
   const loggedIn = useSelector((state) => state.auth.loggedIn);
   const questions = useSelector((state) => state.questions.questions);
-
+  console.log(questions);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredQuestions = questions.filter((question) =>
+  const filteredQuestions = (questions || []).filter((question) =>
+    question && question.question && question.question.body &&
     question.question.body.toLowerCase().includes(searchQuery.toLowerCase())
   )
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllQuestionsAsync())
+    dispatch(getAllQuestionsAsync());
   }, [dispatch]);
 
   useEffect(() => {
@@ -41,14 +42,13 @@ const Questions = () => {
       </span> : part
     )
   }
-
   return (
     <section>
       <div>
         <div className="flex max-w-md flex-col gap-4">
           <div>
             <div className="mb-2 block">
-              <Label htmlFor="input-gray" color="gray" value="Search questions" />
+              <Label htmlFor="input-gray" color="gray" value="Search questions to answer" />
             </div>
             <TextInput
               id="input-gray"
@@ -68,28 +68,15 @@ const Questions = () => {
               <p className="py-2" color="red">
                 {highlightText(item.question.body, searchQuery)}
               </p>
-              {item.question.answer ? (
-                <div className="p-3">
-                  <p>Answer will appear here</p>
-                </div>
-              ) : (
-                <div>
-
-                  {user.user_identity.startsWith("AG") && loggedIn ? (
-                    
-                    <Button type="button">
-                      <Link to={`/agent/question-detail/${item.question.id}`}>
-                        View Details
-                      </Link>
-                    </Button>
-                  ) : (
-                    <h3>
-                      This question has not been answered yet
-                    </h3>
-                  )}
-
-                </div>
-              )}
+              <div>
+                {user.user_identity.startsWith("AG") && loggedIn && (
+                  <Button type="button">
+                    <Link to={`/agent/question-detail/${item.question.id}`}>
+                      View Details
+                    </Link>
+                  </Button>
+                )}
+              </div>
             </div>
           ))}
         </ul>

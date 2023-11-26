@@ -1,23 +1,32 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, Label, TextInput } from 'flowbite-react';
 import { useNavigate } from 'react-router';
 import { useForm } from 'react-hook-form'
 
-import { loginUserAsync } from '../../features/authentication/authenticationSlice';
+import { currentUserAsync, loginUserAsync } from '../../features/authentication/authenticationSlice';
+import { useEffect } from 'react';
 
 const LoginForm = () => {
 
   const dispatch = useDispatch();
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
-
+  const user = useSelector((state) => state.auth.user);
+  
   const onSubmit = (data) => {
-    const { email, password } = data;
-    console.log(email, password, data)
     dispatch(loginUserAsync(data))
-    navigate(`/customer`);
-    reset();
-  }
+    console.log(user)
+    if (user && user.user_identity.startsWith("AG")) {
+      navigate('/agent');
+    } else if (user && user.user_identity.startsWith("CU")) {
+      navigate('/customer')
+    }
+  };
+
+  useEffect(() => {
+    dispatch(currentUserAsync());
+  }, [dispatch]);
+
   return (
     <section className="flex justify-center p-20">
       <form
