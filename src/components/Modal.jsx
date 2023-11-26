@@ -1,10 +1,11 @@
 import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
-
+import PropTypes from 'prop-types';
 const LoginToggle = ({
   openModal, onCloseModal, email,
   handleEmail, isLoginForm, handleSubmit,
   handleToggleForm,
 }) => {
+
   return (
     <>
       <Modal show={openModal} size="md" onClose={onCloseModal} popup>
@@ -87,5 +88,15 @@ const LoginToggle = ({
       </Modal>
     </>
   );
+}
+LoginToggle.propTypes = {
+  openModal: PropTypes.bool.isRequired,
+  onCloseModal: PropTypes.func.isRequired,
+  handleToggleForm: PropTypes.func.isRequired,
+  handleEmail: PropTypes.func.isRequired,
+  email: PropTypes.string.isRequired,
+  isLoginForm: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired,
 }
 export default LoginToggle;

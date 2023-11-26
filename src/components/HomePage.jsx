@@ -1,34 +1,45 @@
 import { useState } from "react";
-
-import { Button } from "flowbite-react";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import { Button, Label, Modal, TextInput } from 'flowbite-react';
+import randomIDGenerator from "./random";
 import NavigationMenu from "./NavigationMenu";
-import LoginToggle from "./Modal";
+import { registerUserAsync, loginUserAsync } from "../features/authentication/authenticationSlice";
 import QuestionsList from "./QuestionsList";
 
 const HomePage = () => {
   const [openModal, setOpenModal] = useState(false);
-  const [email, setEmail] = useState('');
   const [isLoginForm, setIsLoginForm] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
   const onCloseModal = () => {
     setOpenModal(false);
-    setEmail('');
   }
-
-  const handleEmail = (event) => {
-    setEmail(event.target.value);
-  };
 
   const handleToggleForm = () => {
     setIsLoginForm(!isLoginForm);
   };
 
-
-  const handleSubmit = () => {
+  const onSubmit = (data) => {
     if (isLoginForm) {
-      alert('You are loggin in')
+      alert('You are loggin in');
+      dispatch(loginUserAsync(data))
+      reset();
+      navigate('/customer/ask');
     } else {
-      alert('You are signin up')
+      const { email, password, passwordConfirmation } = data;
+      const formData = {
+        email,
+        password,
+        password_confirmation: passwordConfirmation,
+        customer_user_id: randomIDGenerator('CU')
+      }
+      dispatch(registerUserAsync(formData));
+      reset();
+      navigate('/customer/login');
     }
   };
 
@@ -47,22 +58,106 @@ const HomePage = () => {
           </div>
         </div>
         <div className="flex justify-end py-5">
-        <Button onClick={() => setOpenModal(true)}>Ask a question</Button>
+          <Button onClick={() => setOpenModal(true)}>Ask a question</Button>
         </div>
-        <LoginToggle
-          openModal={openModal}
-          onCloseModal={onCloseModal}
-          email={email}
-          handleEmail={handleEmail}
-          isLoginForm={isLoginForm}
-          handleToggleForm={handleToggleForm}
-          handleSubmit={handleSubmit}
-        />
-      </main>
+        <div>
+          <Modal show={openModal} size="md" onClose={onCloseModal} popup>
+            <Modal.Header />
+            <Modal.Body>
+              <div className="space-y-6">
+                <h3 className="text-xl font-medium text-gray-900 dark:text-white">
+                  {isLoginForm ? 'Sign in to our platform' : 'Create an account'}
+                </h3>
+                {isLoginForm ? (
+                  <div>
+                    <div>
+                      <div className="mb-2 block">
+                        <Label htmlFor="email" value="Your email" />
+                      </div>
+                      <TextInput
+                        id="email"
+                        placeholder="name@company.com"
+                        {...register("email", { required: true })}
+                      />
+                    </div>
+                    <div className="mb-2 block">
+                      <Label htmlFor="password" value="Your password" />
+                    </div>
+                    <TextInput
+                      id="password"
+                      type="password"
+                      {...register("password", { required: true })}
+                    />
+                  </div>
+                ) : (
+                  <>
+                    <div>
+                      <div className="mb-2 block">
+                        <Label htmlFor="email" value="Your email" />
+                      </div>
+                      <TextInput
+                        id="email"
+                        placeholder="name@company.com"
+                        {...register("email", { required: true })}
+                      />
+                    </div>
+                    <div>
+                      <div className="mb-2 block">
+                        <Label htmlFor="password" value="Your password" />
+                      </div>
+                      <TextInput
+                        id="password1"
+                        type="password"
+                        {...register("password", { required: true })}
+                      />
+                    </div>
+                    <div>
+                      <div className="mb-2 block">
+                        <Label htmlFor="password" value="Confirm password" />
+                      </div>
+                      <TextInput
+                        id="password2"
+                        type="password"
+                        {...register("passwordConfirmation", { required: true })}
+                      />
+                    </div>
+                  </>
+                )}
+                <div className="w-full">
+                  <Button onClick={handleSubmit(onSubmit)}>
+                    {isLoginForm ? 'Login in to your account' : 'Creat your account'}
+                  </Button>
+                </div>
+                { errors && (
+                  <p className="text-red-500 dark:text-red-400">
+                    {Object.values(errors).map((error, index) => (
+                      <span key={index}>{error.message}</span>
+                    ))}
+                  </p>
+                )}
+                <div className="flex justify-between text-sm font-medium text-gray-500 dark:text-gray-300">
+                  {isLoginForm ? (
+                    <>
+                      Not registered?&nbsp;
+                      <a href="#" onClick={handleToggleForm} className="text-cyan-700 hover:underline dark:text-cyan-500">
+                        Create account
+                      </a>
+                    </>
+                  ) : (
+                    <>
+                      Already have an account?&nbsp;
+                      <a href="#" onClick={handleToggleForm} className="text-cyan-700 hover:underline dark:text-cyan-500">
+                        Sign in
+                      </a>
+                    </>
+                  )}
+                </div>
+              </div>
+            </Modal.Body>
+          </Modal>
+        </div>
+      </main >
     </>
-  )
+  );
 };
 export default HomePage;
-
-
-
