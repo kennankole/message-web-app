@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getAllQuestionsApi } from './questionApi';
+import { getAllQuestionsApi, askQuestionApi } from './questionApi';
 
 export const getAllQuestionsAsync = createAsyncThunk(
   'questions/fetchAllQuestions', 
@@ -7,7 +7,16 @@ export const getAllQuestionsAsync = createAsyncThunk(
     const response = await getAllQuestionsApi();
     return response.data;
   }
-)
+);
+
+export const askQuestionAsync = createAsyncThunk(
+  'question/askQuestion',
+  async (data) => {
+    const response = await askQuestionApi(data);
+    return response.data;
+  }
+);
+
 
 const initialState = {
   error: null,
@@ -34,6 +43,18 @@ const questionsSlice = createSlice({
         state.questions = action.payload;
       })
       .addCase(getAllQuestionsAsync.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error;
+      })
+
+      // Ask Question
+      .addCase(askQuestionAsync.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(askQuestionAsync.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(askQuestionAsync.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error;
       });
