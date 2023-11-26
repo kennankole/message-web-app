@@ -13,6 +13,9 @@
   border-radius: 4px;
 }
 
+.highlight {
+  background-color: greenyellow;
+}
 @media only screen and (max-width: 768px) {
   .dashboard {
     display: block;

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllQuestionsAsync } from '../features/questions/questionSlice';
-import { Accordion } from 'flowbite-react';
+import { Accordion, Button } from 'flowbite-react';
 // import { useNavigate } from 'react-router';
 
 const QuestionsList = () => {
@@ -27,6 +27,15 @@ const QuestionsList = () => {
                 <p className="mb-2 text-gray-500 dark:text-gray-400">
                   {item.question.body}
                 </p>
+                {item.question.answer ? (
+                  <Button type="button" color="yellow">
+                    No answer
+                  </Button>
+                ) : (
+                  <Button type="button" color="green">
+                    View Answer
+                  </Button>
+                )}
               </Accordion.Content>
             </Accordion.Panel>
           ))
