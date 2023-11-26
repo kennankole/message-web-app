@@ -49,11 +49,21 @@ const CustomerDashBoard = () => {
           {user && myQuestions.length ? (
             myQuestions.map((item) => (
               <Accordion.Panel key={item.question.id}>
-                <Accordion.Title>{user.user_identity}</Accordion.Title>
+                <Accordion.Title>
+                  {item.question.body}
+                </Accordion.Title>
                 <Accordion.Content>
-                  <p className="mb-2 text-gray-500 dark:text-gray-400">
-                    {item.question.body}
-                  </p>
+                  <div>
+                    {item.question.answer ? (
+                      <p className="mb-2 text-gray-500 dark:text-gray-400">
+                        {item.question.answer}
+                      </p>
+                    ) : (
+                      <p className="mb-2 text-gray-500 dark:text-gray-400">
+                        No answer
+                      </p>
+                    )}
+                  </div>
                 </Accordion.Content>
               </Accordion.Panel>
             ))
@@ -79,7 +89,7 @@ const CustomerDashBoard = () => {
             </Button>
           </Link>
         </div>
-      </section>
+      </section >
     </>
   );
 }
