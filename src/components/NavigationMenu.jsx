@@ -12,7 +12,7 @@ const NavigationMenu = () => {
 
   useEffect(() => {
     dispatch(currentUserAsync(user))
-  }, [dispatch, user]);
+  }, [dispatch]);
 
   const handleLogout = () => {
     dispatch(logoutUserAsync(user))

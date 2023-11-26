@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import {
   Button,
@@ -8,27 +8,37 @@ import {
 } from 'flowbite-react';
 import { currentUserAsync } from '../../features/authentication/authenticationSlice';
 import { answerQuestionAsync } from '../../features/answers/answersSlice';
+import { getAllQuestionsAsync } from '../../features/questions/questionSlice';
+import { formattedDate } from '../../dateFormat';
 
 const QuestionDetail = () => {
   const [openModal, setOpenModal] = useState(false);
+  const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const loggedIn = useSelector((state) => state.auth.loggedIn);
+  const questions = useSelector((state) => state.questions.questions);
+  const question = questions.find((question) => question.question.id === parseInt(id, 10))
+
   const { register, handleSubmit } = useForm();
 
 
   const onCloseModal = () => {
     setOpenModal(false);
-    // setEmail('');
   }
 
   useEffect(() => {
     dispatch(currentUserAsync())
   }, [dispatch]);
 
+
+  useEffect(() => {
+    dispatch(getAllQuestionsAsync())
+  }, [dispatch]);
+
   const onSubmit = (data) => {
-    dispatch(answerQuestionAsync({data, user}));
+    dispatch(answerQuestionAsync({data, user, id}));
     navigate('/agent');
   }
   return (
@@ -36,13 +46,13 @@ const QuestionDetail = () => {
       <div className="p-10">
         <div className="">
           <h3 className="">
-            Title: Can I get a loan now?
+            {question.question.body}
           </h3>
           <h3 className="">
-            Asked by: USERID345
+            Customer ID {question.question.user_identity.replace(/\.\d+$/, '')}
           </h3>
           <h3 className="">
-            Date: November 24, 2023
+            Asked on {formattedDate(question.question.date_time)}
           </h3>
         </div>
         <div className="py-5">
@@ -60,7 +70,7 @@ const QuestionDetail = () => {
                   Answer question
                 </h3>
                 <p>
-                  Question Body
+                  {question.question.body}
                 </p>
                 <div className="max-w-md">
                   <div className="mb-2 block">

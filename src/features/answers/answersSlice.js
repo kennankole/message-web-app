@@ -3,8 +3,8 @@ import { answerQuestionsApi } from './answersApi';
 
 export const answerQuestionAsync = createAsyncThunk(
   'answer/answerQuestions', 
-  async () => {
-    const response = await answerQuestionsApi();
+  async (formData) => {
+    const response = await answerQuestionsApi(formData);
     return response.data;
   }
 )
@@ -35,6 +35,7 @@ const answersSlice = createSlice({
       .addCase(answerQuestionAsync.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error;
+        console.log(state.error);
       });
   },
 });

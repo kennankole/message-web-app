@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { Button, Label, TextInput } from 'flowbite-react';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate } from 'react-router';
 import { useForm } from 'react-hook-form'
 
 import { loginUserAsync } from '../../features/authentication/authenticationSlice';
@@ -10,13 +10,12 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const { register, handleSubmit, reset } = useForm();
   const navigate = useNavigate();
-  const { id } = useParams();
 
   const onSubmit = (data) => {
     const { email, password } = data;
     console.log(email, password, data)
     dispatch(loginUserAsync(data))
-    navigate(`/agent/question-detail/${id}`);
+    navigate(`/customer`);
     reset();
   }
   return (

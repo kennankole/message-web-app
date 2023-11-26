@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { currentUserAsync } from "../../features/authentication/authenticationSlice";
 import { getAllQuestionsAsync } from "../../features/questions/questionSlice";
 import { Link } from "react-router-dom";
 import { Button, Label, TextInput } from "flowbite-react";
 
 const Questions = () => {
   const user = useSelector((state) => state.auth.user)
+
   const loggedIn = useSelector((state) => state.auth.loggedIn);
   const questions = useSelector((state) => state.questions.questions);
-  const unAnsweredQuestions = questions.filter((question) => question.question.answer === null);
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -20,6 +21,10 @@ const Questions = () => {
 
   useEffect(() => {
     dispatch(getAllQuestionsAsync())
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(currentUserAsync())
   }, [dispatch]);
 
   const handleSearchChange = (event) => {
@@ -71,9 +76,10 @@ const Questions = () => {
                 <div>
 
                   {user.user_identity.startsWith("AG") && loggedIn ? (
+                    
                     <Button type="button">
-                      <Link to="/agent/answer">
-                        Leave an answer
+                      <Link to={`/agent/question-detail/${item.question.id}`}>
+                        View Details
                       </Link>
                     </Button>
                   ) : (
