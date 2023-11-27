@@ -2,13 +2,14 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { currentUserAsync } from '../../features/authentication/authenticationSlice';
 import { getAllQuestionsAsync } from '../../features/questions/questionSlice';
-import { Accordion, Button } from 'flowbite-react';
+import { Accordion, Button, Spinner } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 
 
 const CustomerDashBoard = () => {
   const dispatch = useDispatch();
   const questions = useSelector((state) => state.questions.questions);
+  const status = useSelector((state) => state.questions.status);
   const user = useSelector((state) => state.auth.user);
   const loggedIn = useSelector((state) => state.auth.loggedIn);
   let myQuestions = []
@@ -16,6 +17,7 @@ const CustomerDashBoard = () => {
     myQuestions = questions.filter((question) => question.question.user_identity === user.user_identity);
   }
 
+  console.log(status);
 
   useEffect(() => {
     dispatch(currentUserAsync())
@@ -36,6 +38,14 @@ const CustomerDashBoard = () => {
         </Button>
       </div>
     );
+  }
+
+  if (status === 'loading') {
+    return (
+      <div className="flex justify-center p-10">
+        <Spinner size="xl" aria-label="Extra large spinner example" className="text-center mx-auto mt-20" />
+      </div>
+    )
   }
   return (
     <>
