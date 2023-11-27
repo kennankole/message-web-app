@@ -13,13 +13,14 @@ const NavigationMenu = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(currentUserAsync(user))
+    dispatch(currentUserAsync())
   }, [dispatch]);
 
   const handleLogout = () => {
     dispatch(logoutUserAsync(user))
-    navigate("/login");
+    navigate("/")
   }
+
   return (
     <Navbar fluid rounded>
       <Navbar.Brand href="https://flowbite-react.com">

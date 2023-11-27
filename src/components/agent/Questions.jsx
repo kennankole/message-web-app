@@ -42,6 +42,7 @@ const Questions = () => {
       </span> : part
     )
   }
+
   return (
     <section>
       <div>
@@ -63,13 +64,13 @@ const Questions = () => {
       </div>
       <div>
         <ul>
-          {filteredQuestions.map((item) => (
+          {user && filteredQuestions.map((item) => (
             <div key={item.question.id} className="p-2">
               <p className="py-2" color="red">
                 {highlightText(item.question.body, searchQuery)}
               </p>
               <div>
-                {user.user_identity.startsWith("AG") && loggedIn && (
+                {user && user.user_identity.startsWith("AG") && loggedIn && (
                   <Button type="button">
                     <Link to={`/agent/question-detail/${item.question.id}`}>
                       View Details

@@ -10,7 +10,6 @@ const QuestionsList = () => {
   const questions = useSelector((state) => state.questions.questions);
   const user = useSelector((state) => state.auth.user);
   const loggedIn = useSelector((state) => state.auth.loggedIn);
-  console.log(user.user_identity);
 
   useEffect(() => {
     dispatch(getAllQuestionsAsync())
