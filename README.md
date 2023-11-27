@@ -21,7 +21,7 @@
 
 # 📖 Messaging Web Application <a name="about-project"></a>
 
-**Messaging Web Application** is a project that allows `Branch International` users to ask question and receive answers from the `Agents`
+**Messaging Web Application** is a project that allows `Branch International` users to ask questions and receive answers from the `Agents`
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -54,13 +54,8 @@
 <!-- GETTING STARTED -->
 
 ## 💻 Getting Started <a name="getting-started"></a>
-
-
-To get a local copy up and running, follow these steps.
-
 ### Prerequisites
-
-In order to run this project you need:
+To get a local copy up and running, you need to install `Node` and `npm` first and then follow these steps.
 
 ### Setup
 
