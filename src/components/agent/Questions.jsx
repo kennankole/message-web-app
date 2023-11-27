@@ -3,15 +3,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { currentUserAsync } from "../../features/authentication/authenticationSlice";
 import { getAllQuestionsAsync } from "../../features/questions/questionSlice";
 import { Link } from "react-router-dom";
-import { Button, Label, TextInput } from "flowbite-react";
+import { Button, Label, TextInput, Spinner } from "flowbite-react";
 
 const Questions = () => {
   const user = useSelector((state) => state.auth.user)
 
   const loggedIn = useSelector((state) => state.auth.loggedIn);
   const questions = useSelector((state) => state.questions.questions);
+  const status = useSelector((state) => state.questions.status);
+  console.log(status);
   const unAnsweredQuestions = questions.filter((question) => question.question.answer === null);
-  console.log(unAnsweredQuestions);
+
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredQuestions = (unAnsweredQuestions || []).filter((question) =>
@@ -44,6 +46,11 @@ const Questions = () => {
     )
   }
 
+  if (status === 'loading') {
+    <div className="flex justify-center p-10">
+      <Spinner size="xl" aria-label="Extra large spinner example" className="text-center mx-auto mt-20" />
+    </div>
+  }
   return (
     <section>
       <div>

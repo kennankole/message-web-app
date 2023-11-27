@@ -7,13 +7,12 @@ import { Button, Label, TextInput } from 'flowbite-react';
 
 
 const CustomerLoginForm = () => {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
     dispatch(loginUserAsync(data))
-    reset();
     navigate("/customer")
 
   }

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { Button, Label, Modal, TextInput } from 'flowbite-react';
+import { Button, Label, Modal, TextInput, Spinner } from 'flowbite-react';
 import { currentUserAsync } from "../features/authentication/authenticationSlice";
 import randomIDGenerator from "./random";
 import NavigationMenu from "./NavigationMenu";
@@ -13,6 +13,7 @@ const HomePage = () => {
   const [openModal, setOpenModal] = useState(false);
   const [isLoginForm, setIsLoginForm] = useState('');
   const user = useSelector((state) => state.auth.user);
+  const status = useSelector((state) => state.auth.status);
 
 
   const dispatch = useDispatch();
@@ -41,13 +42,20 @@ const HomePage = () => {
         email,
         password,
         password_confirmation: passwordConfirmation,
-        customer_user_id: randomIDGenerator('CU')
+        user_identity: randomIDGenerator('CU')
       }
       dispatch(registerUserAsync(formData));
       navigate('/login');
     }
   };
 
+  if (status === 'loading') {
+    return (
+      <div className="flex justify-center p-10">
+        <Spinner size="xl" aria-label="Extra large spinner example" className="text-center mx-auto mt-20" />
+      </div>
+    )
+  }
   return (
     <>
       <NavigationMenu />
@@ -66,7 +74,12 @@ const HomePage = () => {
           <div></div>
         ) : (
           <div className="flex justify-end py-5">
-            <Button onClick={() => setOpenModal(true)}>Ask a question</Button>
+            <Button
+              onClick={() => setOpenModal(true)}
+              className="fixed right-0 top-1/2 transform -translate-y-1/2"
+            >
+              Ask a question
+            </Button>
           </div>
         )}
 

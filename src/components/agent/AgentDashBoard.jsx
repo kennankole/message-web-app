@@ -11,6 +11,7 @@ const AgentDashBoard = () => {
   const user = useSelector((state) => state.auth.user);
   const loggedIn = useSelector((state) => state.auth.user);
 
+
   useEffect(() => {
     dispatch(currentUserAsync())
   }, [dispatch]);
@@ -23,7 +24,6 @@ const AgentDashBoard = () => {
       </div>
     );
   }
-
   return (
     <>
       {user && loggedIn ? (

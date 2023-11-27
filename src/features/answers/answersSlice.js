@@ -11,6 +11,7 @@ export const answerQuestionAsync = createAsyncThunk(
 
 const initialState = {
   error: null,
+  status: 'idle',
   isLoading: false,
   answer: [],
 };
@@ -28,14 +29,16 @@ const answersSlice = createSlice({
     builder
       .addCase(answerQuestionAsync.pending, (state) => {
         state.isLoading = true;
+        state.status = 'loading';
       })
       .addCase(answerQuestionAsync.fulfilled, (state) => {
         state.isLoading = false;
+        state.status = 'fulfilled';
       })
       .addCase(answerQuestionAsync.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error;
-        console.log(state.error);
+        state.status = 'rejected';
       });
   },
 });

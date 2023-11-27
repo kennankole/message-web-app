@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Accordion, Button } from 'flowbite-react';
+import { Accordion, Button, Spinner } from 'flowbite-react';
 import { getAllQuestionsAsync } from '../features/questions/questionSlice';
 import { currentUserAsync } from '../features/authentication/authenticationSlice';
 
 const QuestionsList = () => {
   const dispatch = useDispatch();
   const questions = useSelector((state) => state.questions.questions);
+  const status = useSelector((state) => state.questions.status);
   const user = useSelector((state) => state.auth.user);
   const loggedIn = useSelector((state) => state.auth.loggedIn);
 
@@ -19,6 +20,13 @@ const QuestionsList = () => {
     dispatch(currentUserAsync())
   }, [dispatch]);
 
+  if (status === 'loading') {
+    return (
+      <div className="flex justify-center p-10">
+        <Spinner size="xl" aria-label="Extra large spinner example" className="text-center mx-auto mt-20" />
+      </div>
+    )
+  }
   return (
     <>
       <Accordion>

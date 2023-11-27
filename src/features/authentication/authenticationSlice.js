@@ -5,6 +5,7 @@ import {
   userLogin, currentUser,
 } from './authenticationApi';
 
+
 export const registerUserAsync = createAsyncThunk(
   'authentication/userRegistration',
   async (data) => {
@@ -47,6 +48,7 @@ const user = JSON.parse(window.localStorage.getItem('user'));
 
 const initialState = {
   error: null,
+  status: 'idle',
   isLoading: false,
   user: user || null,
   loggedIn: !!authToken,
@@ -66,28 +68,34 @@ const authenticationSlice = createSlice({
     builder
       .addCase(registerUserAsync.pending, (state) => {
         state.isLoading = true;
+        state.status = 'loading';
       })
       .addCase(registerUserAsync.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload;
+        state.status = 'fulfilled';
       })
       .addCase(registerUserAsync.rejected, (state) => {
         state.isLoading = false;
+        state.status = 'rejected';
       })
 
       // Login
       .addCase(loginUserAsync.pending, (state) => {
         state.isLoading = true;
+        state.status = 'loading';
       })
       .addCase(loginUserAsync.fulfilled, (state, action) => {
         state.isLoading = false;
         state.loggedIn = true;
         state.user = action.payload.data;
+        state.status = 'fulfilled';
       })
       .addCase(loginUserAsync.rejected, (state, action) => {
         state.isLoading = false;
         state.loggedIn = false;
         state.error = action.error.message;
+        state.status = 'rejected';
       })
 
       // Get current user
@@ -104,14 +112,18 @@ const authenticationSlice = createSlice({
       // Logout
       .addCase(logoutUserAsync.pending, (state) => {
         state.isLoading = true;
+        state.status = 'loading';
       })
       .addCase(logoutUserAsync.rejected, (state) => {
         state.loggedIn = false;
+        state.status = 'rejected';
       })
       .addCase(logoutUserAsync.fulfilled, (state) => {
         state.isLoading = false;
         state.loggedIn = false;
         window.localStorage.clear();
+        state.status = 'fulfilled';
+        state.status = 'idle';
       })
   },
 });
