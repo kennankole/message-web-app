@@ -4,12 +4,13 @@ import { currentUserAsync } from '../../features/authentication/authenticationSl
 
 import RealTimeQuestions from './IncomingQuestions';
 import Questions from './Questions';
-import { Button } from 'flowbite-react';
+import { Button, Spinner } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 const AgentDashBoard = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const loggedIn = useSelector((state) => state.auth.user);
+  const status = useSelector((state) => state.auth.status);
 
 
   useEffect(() => {
@@ -23,6 +24,14 @@ const AgentDashBoard = () => {
         <p>Contatc the Admin</p>
       </div>
     );
+  }
+
+  if (status === 'loading') {
+    return (
+      <div className="flex justify-center p-10">
+        <Spinner size="xl" aria-label="Extra large spinner example" className="text-center mx-auto mt-20" />
+      </div>
+    )
   }
   return (
     <>
