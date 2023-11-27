@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllQuestionsAsync } from '../features/questions/questionSlice';
-import { Accordion, Button } from 'flowbite-react';
-import { currentUserAsync } from '../features/authentication/authenticationSlice';
 import { Link } from 'react-router-dom';
+import { Accordion, Button } from 'flowbite-react';
+import { getAllQuestionsAsync } from '../features/questions/questionSlice';
+import { currentUserAsync } from '../features/authentication/authenticationSlice';
 
 const QuestionsList = () => {
   const dispatch = useDispatch();
