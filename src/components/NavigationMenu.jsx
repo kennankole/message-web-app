@@ -47,7 +47,7 @@ const NavigationMenu = () => {
               </Dropdown.Item>
             </>
           ) : (
-          <Dropdown.Item onClick={handleLogout}>
+          <Dropdown.Item>
             <Link to="/login">
               Login
             </Link>

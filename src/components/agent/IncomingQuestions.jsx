@@ -1,21 +1,8 @@
-// import React from 'react';
-
-import { Link } from "react-router-dom";
-
 const RealTimeQuestions = () => {
   const dummyQuestions = [
-    'How does the system handle authentication?',
-    'What are the supported browsers?',
-    'Can I change my profile picture?',
-    'How does the system handle authentication?',
-    'What are the supported browsers?',
-    'Can I change my profile picture?',
-    'How does the system handle authentication?',
-    'What are the supported browsers?',
-    'Can I change my profile picture?',
-    'How does the system handle authentication?',
-    'What are the supported browsers?',
-    'Can I change my profile picture?',
+    'I have just paid my loan before the deadline, can I apply for another one?',
+    'I am not able to login to my app',
+    'Can I get a loan of 100,000 as a first timer?',
   ];
 
   return (
@@ -26,9 +13,7 @@ const RealTimeQuestions = () => {
             key={index}
             className="bg-white p-3 mb-2 rounded-md shadow-md"
           >
-            <Link to="/agent/question-detail/1">
-              {question}
-            </Link>
+            {question}
           </div>
         ))}
       </div>

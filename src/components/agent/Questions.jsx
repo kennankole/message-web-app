@@ -10,10 +10,11 @@ const Questions = () => {
 
   const loggedIn = useSelector((state) => state.auth.loggedIn);
   const questions = useSelector((state) => state.questions.questions);
-  console.log(questions);
+  const unAnsweredQuestions = questions.filter((question) => question.question.answer === null);
+  console.log(unAnsweredQuestions);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredQuestions = (questions || []).filter((question) =>
+  const filteredQuestions = (unAnsweredQuestions || []).filter((question) =>
     question && question.question && question.question.body &&
     question.question.body.toLowerCase().includes(searchQuery.toLowerCase())
   )
