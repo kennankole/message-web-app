@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import { currentUserAsync, loginUserAsync } from '../../features/authentication/authenticationSlice';
 import { useEffect } from 'react';
 import NavigationMenu from '../NavigationMenu';
+import { Link } from 'react-router-dom';
 
 const LoginForm = () => {
 
@@ -60,7 +61,15 @@ const LoginForm = () => {
             />
           </div>
           <Button type="submit" className="w-1/3">Login</Button>
+          <div>
+            <p>Don&apos;t have an account?</p>
+            
+            <Link to="/agent/signup">
+              Sign up
+            </Link>
+          </div>
         </form>
+
       </section>
     </>
   );

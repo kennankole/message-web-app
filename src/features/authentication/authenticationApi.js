@@ -15,13 +15,13 @@ axiosInstance.interceptors.request.use((config) => {
 });
 
 export const registerUser = (data) => {
-  const { customer_user_id, email, password, password_confirmation } = data;
+  const { user_identity, email, password, password_confirmation } = data;
   return axiosInstance.post('/signup', {
     user: {
       email,
       password,
       password_confirmation,
-      customer_user_id
+      user_identity,
     },
   });
 };

@@ -2,21 +2,28 @@
 import { Button, Label, TextInput } from 'flowbite-react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { registerUserAsync } from '../features/authentication/authenticationSlice';
-import NavigationMenu from './NavigationMenu';
+import randomIDGenerator from './random';
 
 const Signup = () => {
   const dispatch = useDispatch();
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    console.log(data);
-    dispatch(registerUserAsync(data));
-    reset();
+    const { email, password, confirmPassword } = data;
+    const formData = {
+      email,
+      password,
+      password_confirmation: confirmPassword,
+      user_identity: randomIDGenerator('AG')
+    }
+    dispatch(registerUserAsync(formData));
+    navigate("/login");
   }
   return (
     <>
-      <NavigationMenu />
       <section className="flex justify-center">
         <form
           className="flex max-w-md flex-col gap-4 w-full"
@@ -53,7 +60,7 @@ const Signup = () => {
               id="repeat-password"
               type="password"
               shadow
-              {...register("confirPassword", { required: true })}
+              {...register("confirmPassword", { required: true })}
             />
           </div>
           <Button type="submit">Register new account</Button>

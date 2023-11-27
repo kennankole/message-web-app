@@ -41,7 +41,7 @@ const HomePage = () => {
         email,
         password,
         password_confirmation: passwordConfirmation,
-        customer_user_id: randomIDGenerator('CU')
+        user_identity: randomIDGenerator('CU')
       }
       dispatch(registerUserAsync(formData));
       navigate('/login');
@@ -66,7 +66,12 @@ const HomePage = () => {
           <div></div>
         ) : (
           <div className="flex justify-end py-5">
-            <Button onClick={() => setOpenModal(true)}>Ask a question</Button>
+            <Button
+              onClick={() => setOpenModal(true)}
+              className="fixed right-0 top-1/2 transform -translate-y-1/2"
+            >
+              Ask a question
+            </Button>
           </div>
         )}
 
