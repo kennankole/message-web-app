@@ -38,26 +38,32 @@ const questionsSlice = createSlice({
     builder
       .addCase(getAllQuestionsAsync.pending, (state) => {
         state.isLoading = true;
+        state.status = 'loading';
       })
       .addCase(getAllQuestionsAsync.fulfilled, (state, action) => {
         state.isLoading = false;
         state.questions = action.payload;
+        state.status = 'successfull';
       })
       .addCase(getAllQuestionsAsync.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
+        state.status = 'rejected';
       })
 
       // Ask Question
       .addCase(askQuestionAsync.pending, (state) => {
         state.isLoading = true;
+        state.status = 'loading';
       })
       .addCase(askQuestionAsync.fulfilled, (state) => {
         state.isLoading = false;
+        state.status = 'successfull';
       })
       .addCase(askQuestionAsync.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
+        state.status = 'rejected';
       });
   },
 });

@@ -20,7 +20,6 @@ const QuestionDetail = () => {
   const loggedIn = useSelector((state) => state.auth.loggedIn);
   const questions = useSelector((state) => state.questions.questions);
   const question = questions.find((question) => question.question.id === parseInt(id, 10))
-
   const { register, handleSubmit } = useForm();
 
 
@@ -38,9 +37,10 @@ const QuestionDetail = () => {
   }, [dispatch]);
 
   const onSubmit = (data) => {
-    dispatch(answerQuestionAsync({data, user, id}));
+    dispatch(answerQuestionAsync({ data, user, id }));
     navigate('/agent');
   }
+
   return (
     <main className="flex justify-center p-20">
       <div className="p-10">

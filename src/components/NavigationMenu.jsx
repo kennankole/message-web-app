@@ -34,7 +34,7 @@ const NavigationMenu = () => {
             <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
           }
         >
-          {loggedIn ? (
+          {user && loggedIn ? (
             <>
               <Dropdown.Header>
                 <span className="block text-sm">User ID:{user.user_identity}</span>
@@ -47,11 +47,16 @@ const NavigationMenu = () => {
               </Dropdown.Item>
             </>
           ) : (
-          <Dropdown.Item>
-            <Link to="/login">
-              Login
-            </Link>
-          </Dropdown.Item>
+            <>
+              <Dropdown.Header>
+                <span className="block text-sm">Your Are Not logged In</span>
+              </Dropdown.Header>
+              <Dropdown.Item>
+                <Link to="/login">
+                  Login
+                </Link>
+              </Dropdown.Item>
+            </>
           )}
         </Dropdown>
       </div>

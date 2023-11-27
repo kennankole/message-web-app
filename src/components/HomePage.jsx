@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { Button, Label, Modal, TextInput } from 'flowbite-react';
+import { Button, Label, Modal, TextInput, Spinner } from 'flowbite-react';
 import { currentUserAsync } from "../features/authentication/authenticationSlice";
 import randomIDGenerator from "./random";
 import NavigationMenu from "./NavigationMenu";
@@ -13,6 +13,7 @@ const HomePage = () => {
   const [openModal, setOpenModal] = useState(false);
   const [isLoginForm, setIsLoginForm] = useState('');
   const user = useSelector((state) => state.auth.user);
+  const status = useSelector((state) => state.auth.status);
 
 
   const dispatch = useDispatch();
@@ -48,6 +49,13 @@ const HomePage = () => {
     }
   };
 
+  if (status === 'loading') {
+    return (
+      <div className="flex justify-center p-10">
+        <Spinner size="xl" aria-label="Extra large spinner example" className="text-center mx-auto mt-20" />
+      </div>
+    )
+  }
   return (
     <>
       <NavigationMenu />
