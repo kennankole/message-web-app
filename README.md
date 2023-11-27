@@ -16,7 +16,6 @@
 - [👥 Authors](#authors)
 - [🔭 Future Features](#future-features)
 - [⭐️ Show your support](#support)
-- [📝 License](#license)
 
 <!-- PROJECT DESCRIPTION -->
 
@@ -108,9 +107,3 @@ In order to run this project you need:
 If you like this project kindly give it a ⭐️ 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- LICENSE -->
-
-## 📝 License <a name="license"></a>
-
-This project is [MIT](./MIT.md) licensed.
