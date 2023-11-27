@@ -43,7 +43,7 @@
 - **Ask a question**
 - **Answer a question**
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#about-project">back to top</a>)</p>
 
 <!-- LIVE DEMO -->
 
@@ -81,7 +81,7 @@ In order to run this project you need:
 ```sh
   npm run dev
 ```
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#about-project">back to top</a>)</p>
 
 <!-- AUTHORS -->
 
@@ -95,10 +95,10 @@ In order to run this project you need:
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/kennedyomondi/)
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#about-project">back to top</a>)</p>
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#about-project">back to top</a>)</p>
 
 <!-- SUPPORT -->
 
@@ -106,4 +106,4 @@ In order to run this project you need:
 
 If you like this project kindly give it a ⭐️ 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#about-project">back to top</a>)</p>
