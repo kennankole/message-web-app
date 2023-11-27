@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 export const axiosInstance = axios.create({
-  baseURL: 'http://localhost:4000',
+  // baseURL: 'http://localhost:4000',
+  baseURL: 'https://branch-messaging-app-backend.onrender.com/',
   'Content-Type': 'application/json',
 });
 
