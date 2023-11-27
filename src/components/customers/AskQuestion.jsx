@@ -44,7 +44,7 @@ const AskQuestion = () => {
         </div>
       ) : (
         <div>
-          You need to login before asking a question
+          You need to login before you can ask a question
           <Link to="/customer/login">
             <Button type="button">
               Login
