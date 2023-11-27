@@ -41,29 +41,3 @@ export const currentUser = () => {
     },
   });
 };
-
-export const forgotPasswordApi = (email) => {
-  axiosInstance.post('/password', {
-    email,
-  });
-};
-
-export const changePasswordApi = (data) => {
-  const { resetPasswordToken, formData } = data;
-  axiosInstance.put('/password', {
-    reset_password_token: resetPasswordToken,
-    password: formData.password,
-    password_confirmation: formData.passwordConfirm,
-  });
-};
-
-export const resendConfirmationLinkApi = (email) => {
-  axiosInstance.post('/confirmation', {
-    email,
-  });
-};
-
-export const confirmAccountApi = (token) => {
-  axiosInstance.get(`/confirmation?confirmation_token=${token}`);
-};
-export const getAllTechnicians = (data) => axiosInstance.get(`/api/v1/users/${data.id}/technicians`);

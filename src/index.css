@@ -1,7 +1,8 @@
+/* stylelint-disable */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+/* stylelint-enable */
 .question-btn {
   margin-top: auto;
   display: flex;
@@ -16,7 +17,8 @@
 .highlight {
   background-color: greenyellow;
 }
-@media only screen and (max-width: 768px) {
+
+@media only screen and (width <= 768px) {
   .dashboard {
     display: block;
   }

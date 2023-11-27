@@ -17,7 +17,7 @@ const HomePage = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onCloseModal = () => {
     setOpenModal(false);
@@ -34,7 +34,6 @@ const HomePage = () => {
   const onSubmit = (data) => {
     if (isLoginForm) {
       dispatch(loginUserAsync(data))
-      reset();
       navigate('/customer/ask');
     } else {
       const { email, password, passwordConfirmation } = data;
@@ -45,8 +44,7 @@ const HomePage = () => {
         customer_user_id: randomIDGenerator('CU')
       }
       dispatch(registerUserAsync(formData));
-      reset();
-      navigate('/customer/login');
+      navigate('/login');
     }
   };
 
@@ -68,7 +66,7 @@ const HomePage = () => {
           <div></div>
         ) : (
           <div className="flex justify-end py-5">
-            <Button onClick={() => setOpenModal(true)}>Ask aaa question</Button>
+            <Button onClick={() => setOpenModal(true)}>Ask a question</Button>
           </div>
         )}
 
